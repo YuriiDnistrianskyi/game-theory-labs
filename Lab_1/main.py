@@ -45,25 +45,24 @@ def search_saddle_point(m: list[list[int]]):
     print(f"Minmax: {minmax.value}")
 
     if maxmin.value == minmax.value:
-        points = {}
+        points = []
         for i in range(l):
             for j in range(c):
                 if m[i, j] == maxmin.value and m[i, j] == min(m[i]) and m[i, j] == max(m[:, j]):
-                    points[(i, j)] = int(m[i, j])
+                    points.append(Node(m[i, j], [i, j]))
 
-        if len(points.keys()) > 1:
-            print(f"Several({len(points.keys())}) saddle points are found")
-            for xy, p in points.items():
+        if len(points) > 1:
+            print(f"Several({len(points)}) saddle points are found")
+            for p in points:
                 print("-" * 20)
-                print(f"Some saddle point: {p} - {xy}")
-                print(f"The optimal strategy for 1 player: {xy[0]}")
-                print(f"The optimal strategy for 2 player: {xy[1]}")
+                print(f"Some saddle point: {p.value} - {p.xy}")
+                print(f"The optimal strategy for 1 player: {p.xy[0]}")
+                print(f"The optimal strategy for 2 player: {p.xy[1]}")
         else:
-            xy = next(iter(points))
-            p = points[xy] 
-            print(f"One saddle point is found: {p} - {xy}")
-            print(f"The optimal strategy for 1 player: {xy[0]}")
-            print(f"The optimal strategy for 2 player: {xy[1]}")
+            p = points[0]
+            print(f"One saddle point is found: {p.value} - {p.xy}")
+            print(f"The optimal strategy for 1 player: {p.xy[0]}")
+            print(f"The optimal strategy for 2 player: {p.xy[1]}")
 
     else:
         print("Saddle point is not found")
