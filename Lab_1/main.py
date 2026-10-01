@@ -44,7 +44,7 @@ def search_saddle_point(m: list[list[int]]):
     print(f"Maxmin: {maxmin.value}")
     print(f"Minmax: {minmax.value}")
 
-    if maxmin.value == minmax.value:
+    if maxmin.value == minmax.value and maxmin.xy == minmax.xy:
         points = []
         for i in range(l):
             for j in range(c):
