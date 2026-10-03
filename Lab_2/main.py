@@ -13,15 +13,15 @@ def main():
     brown_robinson_method(np.array(matrix), steps)
 
 
-def calculate_frequency(p, n, current):
-    new_p = []
-    for i in range(len(p)):
+def calculate_frequency(old_f, n, current):
+    new_values = []
+    for i in range(len(old_f)):
         if i == current:
-            new = ((n * p[i]) + 1) / (n + 1)
+            new = ((n * old_f[i]) + 1) / (n + 1)
         else:
-            new = (n * p[i]) / (n + 1)
-        new_p.append(new)
-    return np.array(new_p)
+            new = (n * old_f[i]) / (n + 1)
+        new_values.append(new)
+    return np.array(new_values)
 
 
 def get_a_strategy(matrix, q):
@@ -37,19 +37,18 @@ def get_b_strategy(matrix, p):
 
 
 def brown_robinson_method(matrix, steps):
-    m = len(matrix)
-    n = len(matrix[0])
+    n =len(matrix)
+    m = len(matrix[0])
 
     i = 0
     j = 0
 
-    p = np.array([1] + [0] * (m - 1))
-    q = np.array([1] + [0] * (n - 1))
+    p = np.array([1] + [0] * (n - 1))
+    q = np.array([1] + [0] * (m - 1))
 
-    vs = []
+    vs = [None]
 
-
-    for s in range(2, steps + 1):
+    for s in range(1, steps):
         i, a = get_a_strategy(matrix, q)
         j, b = get_b_strategy(matrix, p)
 
@@ -59,7 +58,8 @@ def brown_robinson_method(matrix, steps):
         v = (a + b) / 2
         vs.append(v)
 
-    plt.plot(range(2, steps + 1), vs)
+
+    plt.plot(range(1, steps + 1), vs)
     plt.xlabel("Steps")
     plt.ylabel("Value of the game")
     plt.title("Brown-Robinson Method")
