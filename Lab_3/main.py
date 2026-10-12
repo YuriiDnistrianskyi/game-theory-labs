@@ -20,8 +20,32 @@ def main():
 
     grafical_solution(np.array(matrix), t)
 
+def search_saddle_point(m: list[list[int]]):
+    l = len(m)
+    c = len(m[0])
+
+    maxmin = max([min(l) for l in m])
+    minmax = min([max(m[:, c]) for c in range(c)])
+
+    print(f"Maxmin: {maxmin}")
+    print(f"Minmax: {minmax}")
+
+    if maxmin == minmax:
+        points = []
+        for i in range(l):
+            for j in range(c):
+                if m[i, j] == maxmin and m[i, j] == min(m[i]) and m[i, j] == max(m[:, j]):
+                    points.append(m[i, j])
+        if len(points) > 1:
+            print(f"Several({len(points)}) saddle points are found: {points[0]}")
+        elif len(points) == 1:
+            print(f"One saddle point is found: {points[0]}")
+    else:
+        print("Not saddle point")
 
 def grafical_solution(matrix, t):
+    search_saddle_point(matrix)
+
     funcs = []
     ls = np.linspace(0, 1, 100)
 
@@ -41,7 +65,8 @@ def grafical_solution(matrix, t):
     v = func[position]
     
     print(f"v = {v}")
-    
+
+    plt.scatter(ls[position], v)
     plt.plot([ls[position]] * 2, [0, v], label="v", linestyle="--")
     
     plt.xlabel("y")
