@@ -14,7 +14,7 @@ def main():
 
 def positive_matrix(m: list[list[int]]):
     min_valus = min([min(l) for l in m])
-    if min_valus < 0:
+    if min_valus <= 0:
         m = m + abs(min_valus) + 1
         return m, abs(min_valus) + 1
 
