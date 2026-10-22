@@ -20,7 +20,6 @@ def positive_matrix(m: list[list[int]]):
 
     return m, 0
 
-
 def line_solve(m):
     m, n = positive_matrix(m)
 
@@ -40,12 +39,12 @@ def line_solve(m):
         method="highs-ds"
     )
 
+    if not z.success or not f.success:
+            print("Linear programming failed")
+            return
+
     solve_z = sum(z.x)
     solve_f = sum(f.x)
-
-    if not z.success or not f.success:
-        print("Linear programming failed")
-        return
 
     v = (1 / solve_z) - n
     p = z.x / solve_z
