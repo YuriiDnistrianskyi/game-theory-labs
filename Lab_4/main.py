@@ -54,6 +54,10 @@ def is_superaditivity(g: dict) -> bool:
         l = [p for p in players if p != i]
         if g[str(i)] + g[f'{l[0]}_{l[1]}'] > g['N']:
             return False
+        for j in l:
+            q, w = sorted([i, j])
+            if g[str(i)] + g[str(j)] > g[f'{q}_{w}']:
+                return False
     return True
 
 def is_essentialy(g: dict) -> bool:
